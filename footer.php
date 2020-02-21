@@ -3,21 +3,10 @@
 	<!-- footer-menu -->
 	<div id="footer-menu">
 			<div class="inner">
-			<!-- 動的フッター、タイトル -->
-				<!-- <div class="footer-logo"><a href="/">TF-30</a></div>/footer-logo
-				<div class="footer-sub">サブタイトルが入りますサブタイトルが入ります</div>/footer-sub
-			
-
-	<?php if (is_home() || is_front_page() ) :  ?>
-	<<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?>
-	<?php else : ?>
-	<div class="header-logo"><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></div>
-	<?php endif; ?>
-	<div class="header-sub"><?php bloginfo('description'); //ブログのdescriptionを表示 ?></div><!-- /header-sub -->
-
-
-
-
+				<div class="footer-logo"><a href="/">TF-30</a></div>
+				<div class="footer-sub">サブタイトルが入りますサブタイトルが入ります</div>
+				
+			<!-- 動的フッター -->
 				<?php
 					wp_nav_menu(
 					array(
