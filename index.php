@@ -1,7 +1,9 @@
 
 
 <?php get_header(); ?>
-	<!-- pickup -->
+
+<!-- ここはindex専用 -->
+	<!-- pickup  --> 
 	<div id="pickup">
 		<div class="inner">
 
@@ -41,7 +43,10 @@
 
 		</div><!-- /inner -->
 	</div><!-- /pickup -->
+ <!-- /index専用 -->
 
+
+ <!------ archiveはここから同様に作る ------>
 
 	<!-- content -->
 	<div id="content">
