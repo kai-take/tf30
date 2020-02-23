@@ -47,7 +47,7 @@
                             if (has_post_thumbnail() ) {
                                 the_post_thumbnail('large');} // アイキャッチ画像が設定されてれば大サイズで表示
                             else {// なければnoimage画像をデフォルトで表示
-                            echo '<img src="' . esc_url(get_template_directory_uri()) . '/img/noimg.png" alt="">';}?>
+                            echo '<img src="' . esc_url(get_template_directory_uri()) . '/img/noimg.png" alt="">';}?> 
                             </div><!-- /entry-item-img -->
 
 						<!-- entry-item-body -->
@@ -57,7 +57,7 @@
 				// カテゴリー１つ目の名前を表示
 				$category = get_the_category();
 				if ($category[0] ) {
-				echo '<div class="entry-item-tag">' . $category[0]->cat_name . '</div><!-- /entry-item-tag -->';}?>
+				echo '<div class="entry-item-tag">' . $category[0]->cat_name . '</div><!-- /entry-item-tag -->';}?> <!-- <div> カテゴリー名 </div> -->
                 
 				<!-- 日付の取得 -->
 			<time class="entry-item-published" datetime="<?php the_time('c'); ?>"><?php the_time('Y/n/j'); ?></time><!-- /entry-item-published -->
