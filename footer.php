@@ -43,7 +43,8 @@
 		<div class="footer-sns-head">この記事をシェアする</div><!-- /footer-sns-head -->
 
 		<nav class="footer-sns-buttons">
-		<ul>
+		
+		<ul> <!-- 二つ目のhttpsをphpに置き換える -->
 		<li><a class="m_twitter"
 		href="https://twitter.com/share?url=<?php the_permalink(); ?>&text=<?php the_title(); //タイトルを表示 ?>" rel="nofollow"
 		target="_blank"><img src="<?php echo get_template_directory_uri() ?>/img/icon-twitter.png" alt=""></a>

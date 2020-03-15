@@ -84,6 +84,7 @@
 			<!-- entry-item-body -->
 			<div class="entry-item-body">
 			<div class="entry-item-meta">
+			
 			<?php
 				// カテゴリー１つ目の名前を表示
 				$category = get_the_category();
@@ -112,23 +113,7 @@
 			<?php endif; ?>
 
 
-			<?php if (paginate_links() ) : //ページが1ページ以上あれば以下を表示 ?> <!-- php if はクラスの上に書くものなのか？ -->
-					<!-- pagenation -->
-					<div class="pagenation">
-					<?php
-					echo
-					paginate_links(
-					array(
-					'end_size' => 0,
-					'mid_size' => 1,
-					'prev_next' => true,
-					'prev_text' => '<i class="fas fa-angle-left"></i>',
-					'next_text' => '<i class="fas fa-angle-right"></i>',
-					)
-					);
-					?>
-					</div><!-- /pagenation -->
-<?php endif; ?>
+			<?php get_template_part('../template-parts/pagenation.php'); ?>
 
 			</main><!-- /primary -->
 

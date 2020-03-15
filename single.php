@@ -90,53 +90,50 @@
         </div><!-- /entry-tag-items -->
 
 
-        <div class="entry-related">
-            <div class="related-title">関連記事</div>
+        
+    <!-- entry-related -->
+    <div class="entry-related">
+        <div class="related-title">関連記事</div>
 
-            <div class="related-items">
+        <?php if( has_category() ) { // カテゴリーを持っているかの判定
+        $post_cats = get_the_category(); // カテゴリー情報取得 配列で値を取得している
+        $cat_ids = array();
+        //所属カテゴリーのIDリストを作っておく
+        foreach($post_cats as $cat) { /* get_the_categoryで取得したモノを一つ一つ出していく */
+        $cat_ids[] = $cat->term_id;
+        }}
 
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
+      // 以下でカテゴリーの条件を設定したいから、上でカテゴリーを取得している
+        $myposts = get_posts( array( // 取得する投稿の条件設定
+        'post_type' => 'post', // 投稿タイプ
+        'posts_per_page' => '8', // ８件を取得
+        'post__not_in' => array( $post->ID ),// 表示中の投稿を除外
+        'category__in' => $cat_ids, // この投稿と同じカテゴリーに属する投稿の中から
+        'orderby' => 'rand' // ランダムに
+        ) );
+        if( $myposts ): ?>
 
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
+        <div class="related-items">
+            <?php foreach($myposts as $post): setup_postdata($post);?>  <!-- foreachで一つずつ$postに格納-->
+            <a class="related-item" href="<?php the_permalink(); ?>">
+            <div class="related-item-img">
+            <?php
+            if (has_post_thumbnail() ) {
+            // アイキャッチ画像が設定されてればミディアムサイズで表示
+            the_post_thumbnail('medium');
+            } else {
+            // なければnoimage画像をデフォルトで表示
+            echo '<img src="' . esc_url(get_template_directory_uri()) . '/img/noimg.png" alt="">';
+            }
+            ?>
+            </div>
+            <div class="related-item-title"><?php the_title(); ?></div><!-- /related-item-title -->
+            </a><!-- /related-item -->
+            <?php endforeach; wp_reset_postdata(); ?>
+        </div><!-- /related-items -->
 
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
-
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
-
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
-
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
-
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
-
-                <a class="related-item" href="">
-                    <div class="related-item-img"><img src="img/entry1.png" alt=""></div><!-- /related-item-img -->
-                    <div class="related-item-title">記事のタイトルが入ります記事のタイトルが入ります記事のタイトルが入ります</div><!-- /related-item-title -->
-                </a><!-- /related-item -->
-
-            </div><!-- /related-items -->
-        </div><!-- /entry-related -->
+        <?php endif; ?>
+    </div><!-- /entry-related -->
 
         </article> <!-- /entry -->
         
