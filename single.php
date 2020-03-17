@@ -30,17 +30,13 @@
         <!-- entry-header -->
         <div class="entry-header">
 
-        <?php
-        // カテゴリー１つ目の名前を表示
-        $category = get_the_category();
-        if ( $category[0] ) : ?>        <!-- なぜこれはdivの外に書くのか、外に書いておくと便利そう、php構文を2文書いてるから？-->
-        <div class="entry-label"><a href="<?php echo esc_url ( get_category_link( $category[0]->term_id ) ); ?>"><?php echo $category[0]->cat_name; ?></a></div> 
-                                          <!-- esc_urlは無効なurlを生成しないため -->   <!-- get_category_link( $category_id ) が定型分 -->
 
-         <!-- カテゴリーのurlと名前を取得する際、若干取得のコードが異なる(当たり前だけどね) -->
-        <?php endif; ?>
 
-            <h1 class="entry-title"><?php the_title(); //タイトルを表示 ?></h1><!-- /entry-title -->
+            <!-- カテゴリー1つ目の名前を表示 --> 
+            <div class="entry-label"><?php my_the_post_category( true ); ?></div><!-- /entry-item-tag -->
+
+            <!-- タイトルを表示 -->
+            <h1 class="entry-title"><?php the_title();?></h1><!-- /entry-title -->
 
             <!-- entry-meta -->
             <div class="entry-meta">
@@ -79,15 +75,11 @@
 
 
    <!--- タグ --->
-   <?php $post_tags = get_the_tags(); ?> <!-- カテゴリーと同様に -->
-        <div class="entry-tag-items">
-            <div class="entry-tag-head">タグ</div><!-- /entry-tag-head -->
-            <?php if ( $post_tags ) : ?>
-            <?php foreach ( $post_tags as $tag ) : ?> <!-- for eachは配列に用いる -->
-             <div class="entry-tag-item"><a href="<?php echo esc_url( get_tag_link($tag->term_id) ); ?>"><?php echo esc_html( $tag->name ); ?></a></div>
-            <?php endforeach; ?>
-            <?php endif; ?>
-        </div><!-- /entry-tag-items -->
+    <!-- entry-tag-items -->
+    <div class="entry-tag-items">
+    <div class="entry-tag-head">タグ</div><!-- /entry-tag-head -->
+    <?php my_get_post_tags(); ?>
+    </div><!-- /entry-tag-items -->
 
 
         

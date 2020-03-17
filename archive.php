@@ -53,12 +53,9 @@
 						<!-- entry-item-body -->
 			<div class="entry-item-body">
 			<div class="entry-item-meta">
-			<?php
-				// カテゴリー１つ目の名前を表示
-				$category = get_the_category();
-				if ($category[0] ) {
-				echo '<div class="entry-item-tag">' . $category[0]->cat_name . '</div><!-- /entry-item-tag -->';}?> <!-- <div> カテゴリー名 </div> -->
-                
+			
+			<!-- カテゴリー1つ目の名前を表示 -->
+			<div class="entry-item-tag"><?php my_the_post_category( false ); ?></div><!-- /entry-item-tag -->
 				<!-- 日付の取得 -->
 			<time class="entry-item-published" datetime="<?php the_time('c'); ?>"><?php the_time('Y/n/j'); ?></time><!-- /entry-item-published -->
 			</div><!-- /entry-item-meta -->

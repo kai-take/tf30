@@ -30,17 +30,10 @@
         <!-- entry-header -->
         <div class="entry-header">
 
-        <?php
-        // カテゴリー１つ目の名前を表示
-        $category = get_the_category();
-        if ( $category[0] ) : ?>        <!-- なぜこれはdivの外に書くのか、外に書いておくと便利そう、php構文を2文書いてるから？-->
-        <div class="entry-label"><a href="<?php echo esc_url ( get_category_link( $category[0]->term_id ) ); ?>"><?php echo $category[0]->cat_name; ?></a></div> 
-                                          <!-- esc_urlは無効なurlを生成しないため -->   <!-- get_category_link( $category_id ) が定型分 -->
+        <!-- カテゴリー1つ目の名前を表示 --> 
+        <div class="entry-label"><?php my_the_post_category( true ); ?></div><!-- /entry-item-tag -->
 
-         <!-- カテゴリーのurlと名前を取得する際、若干取得のコードが異なる(当たり前だけどね) -->
-        <?php endif; ?>
-
-            <h1 class="entry-title"><?php the_title(); //タイトルを表示 ?></h1><!-- /entry-title -->
+        <h1 class="entry-title"><?php the_title(); //タイトルを表示 ?></h1><!-- /entry-title -->
 
             <!-- entry-meta -->
             <div class="entry-meta">
