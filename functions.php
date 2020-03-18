@@ -157,4 +157,26 @@ function my_archive_title( $title ) {
         }
         }
      }
+
+
+
+/**
+* ウィジェットの登録
+*
+* @codex http://wpdocs.osdn.jp/%E9%96%A2%E6%95%B0%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9/register_sidebar
+*/
+function my_widget_init() {
+    register_sidebar(
+    array(
+    'name' => 'サイドバー', //表示するエリア名
+    'id' => 'sidebar', //id
+    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'after_widget' => '</div>',
+    'before_title' => '<div class="widget-title">',
+    'after_title' => '</div>',
+    )
+    );
+    }
+    add_action( 'widgets_init', 'my_widget_init' );
+    
     

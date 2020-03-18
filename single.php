@@ -88,17 +88,17 @@
         <div class="related-title">関連記事</div>
 
         <?php if( has_category() ) { // カテゴリーを持っているかの判定
-        $post_cats = get_the_category(); // カテゴリー情報取得 配列で値を取得している
+        $post_cats = get_the_category(); // その投稿が持つ全カテゴリーを配列として一括取得
         $cat_ids = array();
         //所属カテゴリーのIDリストを作っておく
-        foreach($post_cats as $cat) { /* get_the_categoryで取得したモノを一つ一つ出していく */
-        $cat_ids[] = $cat->term_id;
+        foreach($post_cats as $cat)/* 配列を一つずつ取り出す */ { /* get_the_categoryで取得したモノを一つ一つ出していく */
+        $cat_ids[] = $cat->term_id; // cat_idsには配列としてタームを一つ一つ入れる
         }}
 
-      // 以下でカテゴリーの条件を設定したいから、上でカテゴリーを取得している
+        // 条件設定
         $myposts = get_posts( array( // 取得する投稿の条件設定
         'post_type' => 'post', // 投稿タイプ
-        'posts_per_page' => '8', // ８件を取得
+        'posts_per_page' => '8', // ８件を取得, 表示では無く取得である事に注意
         'post__not_in' => array( $post->ID ),// 表示中の投稿を除外
         'category__in' => $cat_ids, // この投稿と同じカテゴリーに属する投稿の中から
         'orderby' => 'rand' // ランダムに
