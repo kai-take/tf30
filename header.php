@@ -35,16 +35,19 @@
 
 
 <!-- 動的ロゴ -->
-	<?php if (is_home() || is_front_page() ) : //トップページではロゴをh1に、それ以外のページではdivに。 ?>
+
+	<?php if (is_home() || is_front_page() ) : // トップページではロゴをh1に、「||」は条件のどちらか一方（もしくは両方）を満たしたときに表示するという意味 ?>
 	<h1 class="header-logo"><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1><!-- /header-logo -->
-	<?php else : ?>
+	<?php else : // それ以外のページではdivに ?>
 	<div class="header-logo"><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></div><!-- /header-logo -->
 	<?php endif; ?>
+
 	<div class="header-sub"><?php bloginfo('description'); //ブログのdescriptionを表示 ?></div><!-- /header-sub -->
+
+<!-- /動的ロゴ -->
 
 
     <!-- 動的ドロワー -->
-
 	    	<!-- drawer -->
 			<div class="drawer">
 				<div class="drawer-icon">
@@ -60,8 +63,8 @@
 						wp_nav_menu(
 						array(
 						'depth' => 1, //メニュー階層を指定、※0の場合は全階層
-						'theme_location' => 'drawer', // ドロワーメニューをここに表示すると指定
-						'container' => 'nav', // コンテナの要素を指定,ここではnavで囲ったメニューを作る事を宣言、あくまで元々作った奴を引き継ぐ
+						'theme_location' => 'drawer', // function.phpで設定した値を指定し、ドロワーメニューをここに表示すると指定、
+						'container' => 'nav', // コンテナの要素を指定、ここではnavで囲ったメニューを作る事を宣言、あくまで元々作った静的なモノを引き継ぐ
 						'container_class' => 'drawer-nav', //コンテナにclassを付与
 						'menu_class' => 'drawer-list', // メニューにclassを付与
 						)

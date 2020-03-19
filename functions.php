@@ -56,9 +56,9 @@ add_action('wp_enqueue_scripts', 'my_script_init');
 */
 function my_menu_init()
 {
-register_nav_menus( //
-array(
-'global' => 'ヘッダーメニュー',
+register_nav_menus( // ナビゲーションの登録
+array( // メニューの位置を識別する名前 => メニューの説明
+'global' => 'ヘッダーメニュー', 
 'drawer' => 'ドロワーメニュー',
 'footer' => 'フッターメニュー',
 )
