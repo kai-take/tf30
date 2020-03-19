@@ -17,16 +17,19 @@
 <!-- primary -->
 <main id="primary">
 
-			<?php
-			//記事があればentriesブロック以下を表示
-			if (have_posts() ) : ?>  <!-- 投稿画面から作った記事があれば、それをSQLから取得 -->
+			<?php 
+			if (have_posts() ) // 表示させるデータがあるかSQLをチェック
+			: ?>
 
 			<!-- entries -->
 			<div class="entries">
 			<?php
 			//投稿された記事数ぶんループ
-			while ( have_posts() ) : /* 取得した記事を表示 */
-			the_post(); ?>
+			while ( have_posts() ) : //表示させるデータがある場合はループし続ける、ループの条件
+			the_post(); // 順にデータを取り出して「$post」へ格納し、次のデータへと進める 
+			            // the_postが色んな事をやってくれてる
+			?>
+			 
 
 
            <!------ 記事のテンプレ ------>
@@ -63,10 +66,7 @@
            <!------ /記事のテンプレ ------>
 
 
-
-			<?php
-			endwhile;
-			?>
+			<?php endwhile; ?> <!-- ループ終了 -->
 			</div><!-- /entries -->
 			<?php endif; ?>
 

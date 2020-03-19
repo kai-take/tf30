@@ -5,10 +5,10 @@
 	<?php
 		echo paginate_links(
 			array(
-				'end_size'  => 0,
-				'mid_size'  => 1,
+				'end_size'  => 0, // ページ番号のリストの両端（最初と最後）にいくつの数字を表示するか
+				'mid_size'  => 	1, // 現在のページの両側にいくつの数字を表示するか
 				'prev_next' => true,
-				'prev_text' => '<i class="fas fa-angle-left"></i>',
+				'prev_text' => '<i class="fas fa-angle-left"></i>', // 前のページへのリンクとして表示する文言
 				'next_text' => '<i class="fas fa-angle-right"></i>',
 			)
 		);

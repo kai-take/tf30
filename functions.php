@@ -56,7 +56,7 @@ add_action('wp_enqueue_scripts', 'my_script_init');
 */
 function my_menu_init()
 {
-register_nav_menus(
+register_nav_menus( //
 array(
 'global' => 'ヘッダーメニュー',
 'drawer' => 'ドロワーメニュー',
@@ -170,13 +170,69 @@ function my_widget_init() {
     array(
     'name' => 'サイドバー', //表示するエリア名
     'id' => 'sidebar', //id
-    'before_widget' => '<div id="%1$s" class="widget %2$s">',
+    'before_widget' => '<div id="%1$s" class="widget %2$s">', // ウィジェットを囲う要素の定義、デフォルトのliからdivに変更、idとclassは気にしなくて良い
     'after_widget' => '</div>',
-    'before_title' => '<div class="widget-title">',
+    'before_title' => '<div class="widget-title">', // ウィジェットの
     'after_title' => '</div>',
     )
     );
     }
     add_action( 'widgets_init', 'my_widget_init' );
     
+    
+
+
+/**
+* カスタムフィールドを使ってアクセス数を取得する（特定記事のアクセス数確認用）
+*
+* @param integer $id 投稿id.
+* @return void
+*/
+//アクセス数を取得
+function get_post_views( $id = 0 ){
+    global $post;
+    //引数が渡されなければ投稿IDを見るように設定
+    if ( 0 === $id ) {
+    $id = $post->ID; // 投稿ID取得
+    }
+
+    $count_key = 'view_counter'; // カスタムフィールドのkey(フィールド名)
+    $count = get_post_meta($id, $count_key, true);  //現在のビュー数を取得
+
+    if($count === ''){
+    delete_post_meta($id, $count_key);
+    add_post_meta($id, $count_key, '0');  // 新規作成
+    }
+    return $count;
+    }
+    
+
+
+    /**
+    * アクセス数の保存、カウントしていく
+    *
+    * @return void
+    */
+    function set_post_views() {
+    global $post;
+    $count = 0;
+    $count_key = 'view_counter';
+    
+    if($post){
+    $id = $post->ID;
+    $count = get_post_meta($id, $count_key, true);
+    }
+    
+    if($count === ''){
+    delete_post_meta($id, $count_key);
+    add_post_meta($id, $count_key, '1');
+    }elseif( $count > 0 ){
+    if(!is_user_logged_in()){ //管理者（自分）の閲覧を除外
+    $count++;
+    update_post_meta($id, $count_key, $count);
+    }
+    }
+    //$countが0のままの場合（404や該当記事の検索結果が0件の場合）は何もしない。
+    }
+    add_action( 'template_redirect', 'set_post_views', 10 );
     
