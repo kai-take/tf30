@@ -17,7 +17,7 @@
                 
             
   <!-- 以下を動的に -->
-
+　
   <?php
     if ( have_posts() ) :
     while ( have_posts() ) :
@@ -87,15 +87,17 @@
     <div class="entry-related">
         <div class="related-title">関連記事</div>
 
+        <!-- 現在表示している記事の持っている全カテゴリーを取得 -->
+
         <?php if( has_category() ) { // カテゴリーを持っているかの判定
-        $post_cats = get_the_category(); // その投稿が持つ全カテゴリーを配列として一括取得
-        $cat_ids = array();
+        $post_cats = get_the_category(); // 現在表示している投稿が持つ全カテゴリーを配列として一括取得
+        $cat_ids = array(); // 配列が代入されるよっていう宣言？
         //所属カテゴリーのIDリストを作っておく
-        foreach($post_cats as $cat)/* 配列を一つずつ取り出す */ { /* get_the_categoryで取得したモノを一つ一つ出していく */
+        foreach($post_cats as $cat)/* 配列を一つずつ取り出し、要素に格納しながら、以下の処理を実行 */ { 
         $cat_ids[] = $cat->term_id; // cat_idsには配列としてタームを一つ一つ入れる
         }}
 
-        // 条件設定
+        // 条件設定、WP_Queryにパラメーターを渡す
         $myposts = get_posts( array( // 取得する投稿の条件設定
         'post_type' => 'post', // 投稿タイプ
         'posts_per_page' => '8', // ８件を取得, 表示では無く取得である事に注意
@@ -105,8 +107,8 @@
         ) );
         if( $myposts ): ?>
 
-        <div class="related-items">
-            <?php foreach($myposts as $post): setup_postdata($post);?>  <!-- foreachで一つずつ$postに格納-->
+        <div class="related-items"> 
+            <?php foreach($myposts as $post): setup_postdata($post);?>  <!-- mypostsには8件のデータが格納されてる、それを一つずつ$postに格納 -->
             <a class="related-item" href="<?php the_permalink(); ?>">
             <div class="related-item-img">
             <?php

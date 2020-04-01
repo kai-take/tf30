@@ -69,15 +69,19 @@ add_action('init', 'my_menu_init');
 
 
 /**
-* アーカイブタイトル書き換え
+*フィルターフックによる余計な文字の削除
 *
 * @param string $title 書き換え前のタイトル.
 * @return string $title 書き換え後のタイトル.
 */
 function my_archive_title( $title ) {
 
-    if ( is_category() ) { // カテゴリーアーカイブの場合
+    // is_category は何々のカテゴリに属する記事一覧の処理に主に使う
+    
+    if ( is_category() ) { // カテゴリー一覧の場合
     $title = '' . single_cat_title( '', false ) . '';
+                                // (接頭辞, 変数に代入するためfalse)
+                                // 接頭辞はデフォルトだと「カテゴリー:」、これを削除
     } elseif ( is_tag() ) { // タグアーカイブの場合
     $title = '' . single_tag_title( '', false ) . '';
     } elseif ( is_post_type_archive() ) { // 投稿タイプのアーカイブの場合
@@ -89,6 +93,7 @@ function my_archive_title( $title ) {
     } elseif ( is_date() ) { // 日付アーカイブの場合
     $title = '';
     if ( get_query_var( 'year' ) ) {
+        // get_query_var は他にも変数キーがあって、様々な値を取得できるよ
     $title .= get_query_var( 'year' ) . '年';
     }
     if ( get_query_var( 'monthnum' ) ) {
@@ -98,10 +103,12 @@ function my_archive_title( $title ) {
     $title .= get_query_var( 'day' ) . '日';
     }
     }
-    return $title;
+    return $title;  
     };
     add_filter( 'get_the_archive_title', 'my_archive_title' );
+                 // フックの名前         ,  実行する関数
 
+// get_the_archive_titleというフックは元々ある、関数で中身を変えるイメージ
 
 /**
 * カテゴリーを1つだけ表示
@@ -117,11 +124,11 @@ function my_archive_title( $title ) {
         //ここはあまり理解していない、結局、投稿idを取得するということ？
         //引数が渡されなければ投稿IDを見るように設定
         if ( 0 === $id ) {
-        $id = $post->ID;
+        $id = $post->ID; 
         }
 
         //カテゴリー一覧を取得
-        $this_categories = get_the_category( $id );
+        $this_categories = get_the_category( $id ); // その投稿のカテゴリー
         if ( $this_categories[0] ) {
         if ( $anchor ) { //引数がtrueならリンク付きで出力
         echo '<a href="' . esc_url( get_category_link( $this_categories[0]->term_id ) ) . '">' . esc_html( $this_categories[0]->cat_name ) . '</a>';

@@ -16,6 +16,7 @@
 				<div class="archive-head m_description">
 				<div class="archive-lead">ARCHIVE</div>
 				<h1 class="archive-title m_category"><?php the_archive_title(); //一覧ページ名を表示 ?></h1><!-- /archive-title -->
+				                                          <!-- カテゴリー、タグ、日付、つまりタームを表示する -->
 				<div class="archive-description">
 				<p><?php the_archive_description(); //説明を表示 ?></p>
 				</div><!-- /archive-description -->
