@@ -29,8 +29,6 @@ add_action('after_setup_theme', 'my_setup');
 // add_action( 'after_setup_theme', 'custom_theme_setup' );
 
 
-
-
 /**
 * CSSとJavaScriptの読み込み
 *
@@ -121,24 +119,23 @@ function my_archive_title( $title ) {
     function my_the_post_category( $anchor = true, $id = 0 ) {
         global $post; // グローバル変数として定義
 
-        //ここはあまり理解していない、結局、投稿idを取得するということ？
+        //ここはあまり理解していない、結局、ページidを取得するということ？
         //引数が渡されなければ投稿IDを見るように設定
         if ( 0 === $id ) {
-        $id = $post->ID; 
+        $id = $post->ID;  // アロー演算子。$postからIDを取り出す。要はページIDを取得
         }
 
         //カテゴリー一覧を取得
-        $this_categories = get_the_category( $id ); // その投稿のカテゴリー
+        $this_categories = get_the_category( $id ); // 投稿に紐づくカテゴリ全てのオブジェクトを配列で取得。引数には投稿IDを指定
         if ( $this_categories[0] ) {
         if ( $anchor ) { //引数がtrueならリンク付きで出力
         echo '<a href="' . esc_url( get_category_link( $this_categories[0]->term_id ) ) . '">' . esc_html( $this_categories[0]->cat_name ) . '</a>';
+                                                                          // カテゴリID
         } else { //引数がfalseならカテゴリー名のみ出力
         echo esc_html( $this_categories[0]->cat_name );
         }
         }
     }
-
-
 
 
 /**
@@ -166,7 +163,6 @@ function my_archive_title( $title ) {
      }
 
 
-
 /**
 * ウィジェットの登録
 *
@@ -178,7 +174,7 @@ function my_widget_init() {
     'name' => 'サイドバー', //表示するエリア名
     'id' => 'sidebar', //id
     'before_widget' => '<div id="%1$s" class="widget %2$s">', // ウィジェットを囲う要素の定義、デフォルトのliからdivに変更、idとclassは気にしなくて良い
-    'after_widget' => '</div>',
+'after_widget' => '</div>',
     'before_title' => '<div class="widget-title">', // ウィジェットの
     'after_title' => '</div>',
     )
